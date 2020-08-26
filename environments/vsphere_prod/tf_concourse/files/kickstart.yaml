@@ -1,0 +1,42 @@
+#cloud-config
+users:
+  - default
+  - name: svc-tf-dev
+    gecos: terraform service
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDAZAjmWXIZkx53IP1NIUa50+Tr8kAz8MyCXBJQN7vZ3ZrVdpeW9shj972vPoEDv0EPPnPWBdHNiVeCj0TjaeeLNPg343ji98prfTOtJciPS0Dogemf0yPVRFkTpYoTaDf/Xgjdf+76Xwdsjnol0on3V7Zjjkt0K8t43uTB5OjAzNkxHyvHmSZGOAW8B1/Ue98agf8HiUz8UERtAQG52f7gUjuX+bXCG3uKF6jUzJ6AV7XoPuvCngJshJtMKX4TVm9p+rUy3Fo6BXS1oNnXxS2BIPB/3kq57ZUEAr8guKSQfj9CTb2Bzmp+53Pv3iRq3s2Ae7gN95ItqRvL7tyniUJFDHZ6XbSyBoz7bNCyXTxMfL7wkePz8KhuI6jTqVzns8fym/eKqfmacWYywc2KqWaewtZWN4gxJatJvkqzRXmNVj4K3r3UJtiOdpGJwSOfbV9hEZHsNXhpA/3vXyM3555h93O13dKGOmupVGATQT1wpg6UDwyofYGUGUrRLIk1zIuXduJeuh1zUxZGtJiPIZgeLRVcdqWsp8P4OXVUwaVyVxbt3asXKIoWTdVrtf4DqiVD8NrFgU3lH2YqL3Bhl+AnlpCoYfd3VQtdauVaNXEduRuAtptwLu5I19rnDePrL6NBdMESBPSvhHPGHfG5m9xe7wPP7NHJFvCwA/1JsC3Fpw== xiguazhi@DESKTOP-E6SPMON
+    groups: sudo, users, admin
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+write_files:
+  - path: /etc/ssh/sshd_config
+    content: |
+      Port 22
+      Protocol 2
+      HostKey /etc/ssh/ssh_host_rsa_key
+      HostKey /etc/ssh/ssh_host_dsa_key
+      HostKey /etc/ssh/ssh_host_ecdsa_key
+      HostKey /etc/ssh/ssh_host_ed25519_key
+      UsePrivilegeSeperation yes
+      KeyRegenerationInterval 3600
+      ServerKeyBits 2048
+      SyslogFacility AUTH
+      LoginGraceTime 120
+      PermitRootLogin no
+      StrictModes yes
+      RSAAuthentication yes
+      PubKeyAuthentication yes
+      IgnoreRhosts yes
+      RhostsRSAAuthentication no
+      HostbassedAuthentication no
+      PermitEmptyPasswords no
+      ChallengeResponseAuthentication no
+      X11Forwarding yes
+      X11DisplayOffset 10
+      PrintMotd no
+      PrintLastLog yes
+      TCPKeepAlive yes
+      AcceptEnv LANG LC_*
+      Subsystem sftp /usr/lib/openssh/sftp-server
+      UsePAM yes
+      AllowUsers svc-tf-dev
