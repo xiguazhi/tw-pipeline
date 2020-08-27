@@ -19,7 +19,7 @@ resource "null_resource" "provision" {
 
     provisioner "remote-exec" {
         inline = [
-            "sudo chmod +x /tmp/scripts/${var.bootstrap_name}",
-            "./tmp/scripts/${var.bootstrap_name}"
+            "sudo chmod +x /tmp/${var.bootstrap_name}",
+            "./tmp/${var.bootstrap_name}"
         ]
     }

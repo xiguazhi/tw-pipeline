@@ -41,10 +41,14 @@ module "concourse-ci" {
       "guestinfo.userdata"          = base64encode(file("${path.module}/templates/userdata.yaml"))
       "guestinfo.userdata.encoding" = "base64"
   }
-  provisioner "file" { 
-      source = "files/"
-      destination = "/tmp/"
-  }
+
 }
 
-module "null_
+module "vm_provision" {
+  source          = "../../../modules/provisioner"
+  conn_type       = "ssh"
+  ssh_user        = "svc-tf-dev"
+  host            = module.concourse-ci.Linux-guest-ip
+  ssh_key         = "C:\Users\xiguazhi\.ssh\id_rsa"
+  bootstrap_name  = "bootstrap.sh"
+}
