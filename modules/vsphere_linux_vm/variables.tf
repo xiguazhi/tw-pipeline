@@ -188,13 +188,13 @@ variable "data_disk_size_gb" {
 variable "disk_datastore" {
   description = "Define where the OS disk should be stored"
   type        = string
-  default     = ""
+  default     = "samsung"
 }
 
 variable "data_disk_datastore" {
   description = "Define where the data disk should be stored, should be equal to number of defined data disks"
   type        = list
-  default     = []
+  default     = ["wdBlue"]
   # validation {
   #   condition     = length(var.disk_datastore) == 0 || length(var.disk_datastore) == length(var.data_disk_size_gb)
   #       error_message = "The list of disk datastore must be equal in length to disk_size_gb"
