@@ -35,12 +35,6 @@ module "concourse-ci" {
       "Sumologic-monitoring-group"  = "just-testing-policy"
 
   }
-  dc        = "bsorenson.io"
-  datastore = "wdBlue"
-  extra_config = {
-      "guestinfo.userdata"          = base64encode(file("${path.module}/templates/userdata.yaml"))
-      "guestinfo.userdata.encoding" = "base64"
-  }
 
 }
 
