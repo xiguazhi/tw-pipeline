@@ -72,13 +72,9 @@ resource "vsphere_virtual_machine" "Linux" {
   tags              = var.tag_ids != null ? var.tag_ids : data.vsphere_tag.tag[*].id
   custom_attributes = var.custom_attributes
   annotation        = var.annotation
-  extra_config      = var.extra_config
-  firmware          = var.firmware
   enable_disk_uuid  = var.enable_disk_uuid
-
   datastore_cluster_id = var.ds_cluster != "" ? data.vsphere_datastore_cluster.datastore_cluster[0].id : null
   datastore_id         = var.datastore != "" ? data.vsphere_datastore.datastore[0].id : null
-
   num_cpus               = var.cpu_number
   num_cores_per_socket   = var.num_cores_per_socket
   cpu_hot_add_enabled    = var.cpu_hot_add_enabled
