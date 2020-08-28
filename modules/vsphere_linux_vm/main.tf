@@ -87,7 +87,7 @@ resource "vsphere_virtual_machine" "Linux" {
   scsi_bus_sharing       = var.scsi_bus_sharing
   scsi_type              = var.scsi_type != "" ? var.scsi_type : data.vsphere_virtual_machine.template.scsi_type
   scsi_controller_count  = length(var.data_disk_scsi_controller) > 0 ? max(max(var.data_disk_scsi_controller...) + 1, var.scsi_controller) : 1
-
+  extra_config           = var.extra_config
   wait_for_guest_net_routable = var.wait_for_guest_net_routable
   wait_for_guest_ip_timeout   = var.wait_for_guest_ip_timeout
   wait_for_guest_net_timeout  = var.wait_for_guest_net_timeout
@@ -126,11 +126,6 @@ resource "vsphere_virtual_machine" "Linux" {
       eagerly_scrub    = var.eagerly_scrub != null ? var.eagerly_scrub[terraform_disks.key] : null
       datastore_id     = length(var.data_disk_datastore) > 0 ? data.vsphere_datastore.data_disk_datastore[var.data_disk_datastore[terraform_disks.key]].id : null
     }
-  }
-  
-  extra_config = {
-    "guestinfo.userdata"          = base64encode(file("${path.module}/files/kickstart.yaml"))
-    "guestinfo.userdata.encoding" = "base64"
   }
 
   clone {
