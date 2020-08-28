@@ -11,6 +11,8 @@ module "concourse-ci" {
   source        = "../../../modules/vsphere_linux_vm"
   dc              = "bsorenson.io"
   datastore       = "wdBlue"
+  dc_abreviation  = "bs"
+  environment     = "p"
   vmtemp          = "tf-centos8-tmpl"
   instances       = 1
   cpu_number      = 2
