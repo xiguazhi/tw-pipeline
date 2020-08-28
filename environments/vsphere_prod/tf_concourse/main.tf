@@ -42,6 +42,7 @@ module "concourse-ci" {
 
 module "vm_provision" {
   source          = "../../../modules/provisioner"
+  ip_address      = module.concourse-ci.Linux-guest-ip
   conn_type       = "ssh"
   ssh_user        = "svc-tf-dev"
   host            = module.concourse-ci.Linux-guest-ip

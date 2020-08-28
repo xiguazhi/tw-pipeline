@@ -7,7 +7,7 @@ resource "null_resource" "provision" {
 	    count   = 2
         type    = "${var.conn_type}"
         user    = "${var.ssh_user}"
-        host    = module.vsphere_vm.ip_address[count.index]
+        host    = module.vsphere_vm.ipv4[count.index]
         private_key     = "${file("${var.ssh_key}")}"
         
     }
