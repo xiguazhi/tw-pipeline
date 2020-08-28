@@ -1,16 +1,21 @@
 variable "ip_address" {
-    type        = "string"
+    type        = string
 }
 
 variable "conn_type" {
-    type        = "string"
+    type        = string
 
 }
 
 variable "ssh_user" {
-    type        = "string"
+    type        = string
 }
 
 variable "ssh_key" {
-    type        = "string"
+    type        = string
+}
+
+
+variable "bootstrap_name" {
+    type        = string
 }
