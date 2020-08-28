@@ -50,5 +50,6 @@ module "vm_provision" {
   conn_type       = "ssh"
   ssh_user        = "svc-tf-dev"
   ssh_key         = "C:/Users/xiguazhi/.ssh/id_rsa"
+  vm_host         = module.concourse-ci.Linux-guest-ip
   bootstrap_name  = "bootstrap.sh"
 }
