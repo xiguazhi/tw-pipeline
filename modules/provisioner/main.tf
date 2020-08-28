@@ -1,12 +1,12 @@
   
 resource "null_resource" "provision" {
     triggers    = {
-        public_ip = "${var.ip_address}"
+        public_ip = var.ip_address
     }
     connection {
 	    count   = 2
-        type    = "${var.conn_type}"
-        user    = "${var.ssh_user}"
+        type    =  var.conn_type
+        user    = var.ssh_user
         host    = module.vsphere_vm.ipv4[count.index]
         private_key     = "${file("${var.ssh_key}")}"
         
