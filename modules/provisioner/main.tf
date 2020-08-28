@@ -23,3 +23,4 @@ resource "null_resource" "provision" {
             "./tmp/${var.bootstrap_name}"
         ]
     }
+}
