@@ -1,11 +1,11 @@
 variable "vsphere_user" {
-    type = "string"
+    type = string
 }
 
 variable "vsphere_password" {
-    type = "string"
+    type = string
 }
 
 variable "vsphere_server" {
-    type = "string"
+    type = string
 }

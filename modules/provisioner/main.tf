@@ -12,7 +12,7 @@ resource "null_resource" "provision" {
         
     }
 
-    provision "file" {
+    provisioner "file" {
         source      = "files/"
         destination = "/tmp/"
     }
