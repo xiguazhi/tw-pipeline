@@ -1,4 +1,5 @@
 variable "ip_address" {
+    type = string
 }
 
 variable "conn_type" {
@@ -20,4 +21,5 @@ variable "bootstrap_name" {
 }
 
 variable "vm_host" {
+    type = string
 }
