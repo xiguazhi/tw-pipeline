@@ -1,12 +1,12 @@
   
 resource "null_resource" "provision" {
     triggers    = {
-        public_ip = var.ipv4[var.network_cards[network_interface.key]][count.index]
+        public_ip = var.public_ip
     }
     connection {
         type    =  var.conn_type
         user    = var.ssh_user
-        host    = var.ipv4[var.network_cards[network_interface.key]][count.index]
+        host    = var.public_ip
         private_key     = file("${var.ssh_key}")
         
     }
