@@ -9,7 +9,7 @@ provider "vsphere" {
 
 module "concourse-ci" {
   source        = "../../../modules/vsphere_linux_vm"
-  conunt        = length(var.ipv4)
+  #conunt        = length(var.ipv4)
   dc              = "bsorenson.io"
   datastore       = "wdBlue"
   dc_abreviation  = "bs"
