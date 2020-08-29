@@ -66,7 +66,6 @@ resource "vsphere_virtual_machine" "Linux" {
   count      = var.is_windows_image != "true" ? var.instances : 0
   depends_on = [var.vm_depends_on]
   name       = "${var.dc_abreviation}${var.environment}-${var.vmname}${count.index + 1}"
-  "${var.dc_abreviation}${var.environment}-${var.vmname}${count.index + 1}}"
   resource_pool_id  = data.vsphere_resource_pool.pool.id
   folder            = var.vmfolder
   tags              = var.tag_ids != null ? var.tag_ids : data.vsphere_tag.tag[*].id
