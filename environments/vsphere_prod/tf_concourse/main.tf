@@ -19,7 +19,6 @@ module "concourse-ci" {
   ram_size        = 2096
   vmname          = "bs-concoursemstr01"
   vmdomain        = "bsorenson.io"
-  vmrp            = "dev"
   network_cards = ["Server VLAN"]
   ipv4submask   = ["24"]
   extra_config = {
