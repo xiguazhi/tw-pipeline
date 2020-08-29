@@ -374,8 +374,3 @@ variable "tag_depends_on" {
   type        = any
   default     = null
 }
-
-variable "vm_name" {
-  description = "define name using environemtn and datacenter."
-  type        = string
-}
