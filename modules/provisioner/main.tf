@@ -7,7 +7,7 @@ resource "null_resource" "provision" {
         type    =  var.conn_type
         user    = var.ssh_user
         host    = var.vm_host
-        private_key     = "${file("${var.ssh_key}")}"
+        private_key     = ${file("${var.ssh_key}")}
         
     }
 

@@ -361,12 +361,12 @@ variable "vm_depends_on" {
 
 variable "dc_abreviation" {
   description     = "abreviation for datacenter"
-  type            = "string"
+  type            = string
 }
 
 variable "environment" {
   description = "initial for deploy environment"
-  type        = "string"
+  type        = string
 }
 
 variable "tag_depends_on" {
