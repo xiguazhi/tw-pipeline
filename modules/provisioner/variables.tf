@@ -15,3 +15,7 @@ variable "ssh_key" {
 variable "bootstrap_name" {
     type        = string
 }
+
+variable "public_ip" {
+    type        = string
+}
