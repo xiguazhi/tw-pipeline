@@ -58,7 +58,7 @@ data "vsphere_tag" "tag" {
 locals {
   interface_count     = length(var.ipv4submask) #Used for Subnet handeling
   template_disk_count = length(data.vsphere_virtual_machine.template.disks)
-  vm_name             = "${var.dc_abreviation}${var.environment}-${var.vmname}${count.index + 1}}"
+  
 }
 
 // Cloning a Linux VM from a given template. Note: This is the default option!!
@@ -66,7 +66,7 @@ resource "vsphere_virtual_machine" "Linux" {
   count      = var.is_windows_image != "true" ? var.instances : 0
   depends_on = [var.vm_depends_on]
   name       = "%{if var.vmnameliteral != ""}${var.vmnameliteral}%{else}${var.dc_abreviation}${var.environment}-${var.vmname}${count.index + 1}${var.vmnamesuffix}%{endif}"
-
+  vm_name             = "${var.dc_abreviation}${var.environment}-${var.vmname}${count.index + 1}}"
   resource_pool_id  = data.vsphere_resource_pool.pool.id
   folder            = var.vmfolder
   tags              = var.tag_ids != null ? var.tag_ids : data.vsphere_tag.tag[*].id
