@@ -9,6 +9,7 @@ provider "vsphere" {
 
 module "concourse-ci" {
   source        = "../../../modules/vsphere_linux_vm"
+  conunt        = length(var.ipv4)
   dc              = "bsorenson.io"
   datastore       = "wdBlue"
   dc_abreviation  = "bs"
@@ -44,7 +45,7 @@ module "concourse-ci" {
 
 module "vm_provision" {
   source          = "../../../modules/provisioner"
-  ip_address      = module.concourse-ci.Linux-guest-ip
+  ip_address      = module.concourse-ci.*.Linux-guest-ip
   conn_type       = "ssh"
   ssh_user        = "svc-tf-dev"
   ssh_key         = "C:/Users/xiguazhi/.ssh/id_rsa"
