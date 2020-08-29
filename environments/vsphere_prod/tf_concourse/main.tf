@@ -32,7 +32,7 @@ module "concourse-ci" {
   data_disk_size_gb = [10] //Additional Disk to be used
   disk_label        = ["Concourse_volume"]
   scsi_type         = "lsilogic"
-  scsi_controller   = 2
+  scsi_controller   = 1
   disk_datastore    = "wdBlue"
   data_disk_datastore   = ["wdBlue"]
   network_type      = ["vmxnet3"]
