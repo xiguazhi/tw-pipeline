@@ -4,7 +4,6 @@ resource "null_resource" "provision" {
         public_ip = var.ip_address
     }
     connection {
-	    count   = 2
         type    =  var.conn_type
         user    = var.ssh_user
         host    = var.vm_host
