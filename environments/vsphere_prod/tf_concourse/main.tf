@@ -44,10 +44,8 @@ module "concourse-ci" {
 
 module "vm_provision" {
   source          = "../../../modules/provisioner"
-  ip_address      = module.concourse-ci.*.Linux-ip
   conn_type       = "ssh"
   ssh_user        = "svc-tf-dev"
   ssh_key         = "C:/Users/xiguazhi/.ssh/id_rsa"
-  vm_host         = module.concourse-ci.Linux-ip
   bootstrap_name  = "bootstrap.sh"
 }
