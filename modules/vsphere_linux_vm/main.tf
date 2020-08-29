@@ -65,7 +65,7 @@ locals {
 resource "vsphere_virtual_machine" "Linux" {
   count      = var.is_windows_image != "true" ? var.instances : 0
   depends_on = [var.vm_depends_on]
-  name       = ""${var.dc_abreviation}${var.environment}-${var.vmname}${count.index + 1}}"
+  name       = "${var.dc_abreviation}${var.environment}-${var.vmname}${count.index + 1}"
   "${var.dc_abreviation}${var.environment}-${var.vmname}${count.index + 1}}"
   resource_pool_id  = data.vsphere_resource_pool.pool.id
   folder            = var.vmfolder
@@ -245,7 +245,6 @@ resource "vsphere_virtual_machine" "Windows" {
         product_key           = var.productkey
         full_name             = var.full_name
       }
-
       dynamic "network_interface" {
         for_each = var.network_cards
         content {
