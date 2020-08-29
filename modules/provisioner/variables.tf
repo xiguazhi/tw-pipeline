@@ -1,7 +1,3 @@
-variable "ip_address" {
-    type = string
-}
-
 variable "conn_type" {
     type        = string
 
@@ -18,8 +14,4 @@ variable "ssh_key" {
 
 variable "bootstrap_name" {
     type        = string
-}
-
-variable "vm_host" {
-    type = string
 }
