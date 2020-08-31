@@ -35,7 +35,7 @@ output "Linux-VM" {
 
 output "Linux-ip" {
   description = "default ip address of the deployed VM"
-  value       = vsphere_virtual_machine.Linux.*.ipv4_address
+  value       = vsphere_virtual_machine.Linux.*.default_ip_address
 }
 
 output "Linux-guest-ip" {
