@@ -44,7 +44,7 @@ module "concourse-ci" {
 
 module "vm_provision" {
   source          = "../../../modules/provisioner"
-  public_ip       = module.vsphere_virtual_machine.Linux.*.default_ip_address
+  public_ip       = module.councourse-ci.Linux.*.default_ip_address
   conn_type       = "ssh"
   ssh_user        = "svc-tf-dev"
   ssh_key         = "C:/Users/xiguazhi/.ssh/id_rsa"
