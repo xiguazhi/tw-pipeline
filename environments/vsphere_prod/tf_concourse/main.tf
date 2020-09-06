@@ -17,7 +17,7 @@ module "concourse-ci" {
   instances       = 1
   cpu_number      = 2
   ram_size        = 2096
-  vmname          = "bs-concoursemstr01"
+  vmname          = "concoursemstr"
   vmdomain        = "bsorenson.io"
   vmrp            = "prod"
   network_cards = ["Server VLAN"]
@@ -29,9 +29,6 @@ module "concourse-ci" {
   ipv4 = {
     "Server VLAN" = ["10.0.30.31"] # To use DHCP create Empty list for each instance
   }
-  data_disk_size_gb = [10] //Additional Disk to be used
-  disk_label        = ["Concourse_volume"]
-  disk_datastore    = "wdBlue"
-  data_disk_datastore   = ["wdBlue"]
+  
   network_type      = ["vmxnet3"]
 }
