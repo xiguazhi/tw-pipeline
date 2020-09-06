@@ -40,3 +40,49 @@ write_files:
       Subsystem sftp /usr/lib/openssh/sftp-server
       UsePAM yes
       AllowUsers svc-tf-dev
+runcmd:
+  - export CONCOURSE_ADD_LOCAL_USER=xiguazhi:hello123
+  - export CONCOURSE_MAIN_TEAM_LOCAL_USER=xiguazhi
+  - export CONCOURSE_SESSION_SIGNING_KEY=path/to/session_signing_key
+  - export CONCOURSE_TSA_HOST_KEY=path/to/tsa_host_key
+  - export CONCOURSE_TSA_AUTHORIZED_KEYS=path/to/authorized_worker_keys
+  - export CONCOURSE_POSTGRES_HOST=127.0.0.1 # default
+  - export CONCOURSE_POSTGRES_PORT=5432      # default
+  - export CONCOURSE_POSTGRES_DATABASE=atc   # default
+  - export CONCOURSE_POSTGRES_USER=concourse
+  - export CONCOURSE_POSTGRES_PASSWORD=hello123
+  - export CONCOURSE_POSTGRES_SOCKET=/var/run/postgresql
+  - export CONCOURSE_EXTERNAL_URL=https://concourse.bs-autocount.com/
+  - export CONCOUSRE_X_FRAME_OPTIONS=sameorigin
+  - export CONCOURSE_CLUSTER_NAME=ansible_poc
+  - export CONCOURSE_TLS_BIND_PORT=443
+  - export COURSE_ENABLE_LETS_ENCRYPT
+  - export CONCOURSE_ENABLE_BUILD_AUDITING=true
+  - export CONCOURSE_ENABLE_CONTAINER_AUDITING=true
+  - export CONCOURSE_ENABLE_JOB_AUDITING=true
+  - export CONCOURSE_ENABLE_PIPELINE_AUDITING=true
+  - export CONCOURSE_ENABLE_RESOURCE_AUDITING=true
+  - export CONCOURSE_ENABLE_SYSTEM_AUDITING=true
+  - export CONCOURSE_ENABLE_TEAM_AUDITING=true
+  - export CONCOURSE_ENABLE_WORKER_AUDITING=true
+  - export CONCOURSE_ENABLE_VOLUME_AUDITING=true
+  - echo "Downloading Concourse"
+  - curl -Lk https://github.com/concourse/concourse/releases/download/v6.3.1/concourse-6.3.1-linux-amd64.tgz -o /vagrant/concourse-6.3.1-linux-amd64.tgz
+  - curl -Lk https://github.com/concourse/concourse/releases/download/v6.3.1/fly-6.3.1-linux-amd64.tgz -o /vagrant/fly-6.3.1-linux-amd64.tgz
+  - sudo cp /vagrant/files/etc/yum.repos.d/CentOS-base.repo /etc/yum.repos.d/CentOS-Base.repo
+  - sudo yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+  - sudo yum install -y postgresql11-server
+  - sudo /usr/pgsql-11/bin/postgresql-11-setup initdb
+  - sudo systemctl start postgresql-11
+  - sudo systemctl enable postgresql-11
+  - sudo -u postgres createuser concourse
+  - sudo -u postgres createdb --owner=concourse atc
+  - sudo tar -zxf /vagrant/concourse-*.tgz -C /usr/local
+  - sudo tar -zxf /vagrant/fly-*.tgz -C /usr/local
+  - sudo mkdir -p /vagrant/concourse_keys/
+  - sudo concourse generate-key -t rsa -f /vagrant/concourse_keys/session_signing_key
+  - sudo concourse generate-key -t ssh -f /vagrant/concourse_keys/tsa_host_key
+  - sudo concourse generate-key -t ssh -f /vagrant/concourse_keys/worker_key
+  - export PATH="/usr/local/concourse/bin:$PATH"
+  - export PATH="/usr/local/fly/bin:$PATH"
+  - concourse web
