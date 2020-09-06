@@ -34,10 +34,4 @@ module "concourse-ci" {
   disk_datastore    = "wdBlue"
   data_disk_datastore   = ["wdBlue"]
   network_type      = ["vmxnet3"]
-  tags              = {
-      "rubrik-backup-strategy"      = "just-testing-policy"
-      "Sumologic-monitoring-group"  = "just-testing-policy"
-
-  }
-
 }
