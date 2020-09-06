@@ -22,10 +22,6 @@ module "concourse-ci" {
   vmrp            = "prod"
   network_cards = ["Server VLAN"]
   ipv4submask   = ["24"]
-  extra_config = {
-    "guestinfo.userdata"          = base64encode(file("${path.module}/files/userdata.yaml"))
-    "guestinfo.userdata.encoding" = "base64"
-  }
   ipv4 = {
     "Server VLAN" = ["10.0.30.31"] # To use DHCP create Empty list for each instance
   }
