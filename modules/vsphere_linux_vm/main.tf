@@ -90,7 +90,7 @@ resource "vsphere_virtual_machine" "Linux" {
   wait_for_guest_net_routable = var.wait_for_guest_net_routable
   wait_for_guest_ip_timeout   = var.wait_for_guest_ip_timeout
   wait_for_guest_net_timeout  = var.wait_for_guest_net_timeout
-
+  firmware = "efi"
   dynamic "network_interface" {
     for_each = var.network_cards
     content {
