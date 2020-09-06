@@ -29,7 +29,5 @@ module "concourse-ci" {
   ipv4 = {
     "Server VLAN" = ["10.0.30.31"] # To use DHCP create Empty list for each instance
   }
-  disk_datastore    = "samsung"
-  data_disk_size_gb = ["20"]
   network_type      = ["vmxnet3"]
 }
