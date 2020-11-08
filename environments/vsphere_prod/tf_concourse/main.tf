@@ -1,10 +1,8 @@
-provider "vsphere" {
-  user           = var.vsphere_user
-  password       = var.vsphere_password
-  vsphere_server = var.vsphere_server
-
-  # If you have a self-signed cert
-  allow_unverified_ssl = true
+module "vsphere_tags" {
+  source                = "../../../modules/vsphere/vsphere_tags"
+  tag_category          = "CreatedOn"
+  category_cardinality  = "SINGLE"
+  tag                   = "${formatdate("DD MM YYYY hh:mm ZZZ",timestamp())}"
 }
 
 module "concourse-ci" {
@@ -22,8 +20,22 @@ module "concourse-ci" {
   vmrp            = "prod"
   network_cards = ["Server VLAN"]
   ipv4submask   = ["24"]
+  vmgateway     = "10.0.30.1"
   ipv4 = {
     "Server VLAN" = ["10.0.30.31"] # To use DHCP create Empty list for each instance
   }
   network_type      = ["vmxnet3"]
+  conn_type         = "ssh"
+  ssh_user          = "svc-tf-dev"
+  ssh_key           = "C:/User/xiguazhi/.ssh/id_rsa"
+}
+
+module "provisioner" {
+  source            = "../../../modules/provisioner"
+  conn_type         = "SSH"
+  public_ip         = "${module.concourse-ci.Linux-ip}"
+  ssh_user          = "svc-tf-dev"
+  ssh_key           = "C:/Users/xiguazhi/.ssh/id_rsa"
+  bootstrap_name    = "./bootstrap.sh"
+
 }

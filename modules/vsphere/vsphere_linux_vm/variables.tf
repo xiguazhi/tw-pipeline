@@ -1,29 +1,29 @@
 variable "vmname" {
-  description = "The name of the virtual machine used to deploy the vms"
+  description = "The name of the virtual machine used to deploy the vms."
   default     = "terraformvm"
 }
 
 variable "vmnamesuffix" {
-  description = "vmname suffix after numbered index coming from instance variable"
+  description = "vmname suffix after numbered index coming from instance variable."
   default     = ""
 }
 
 variable "vmnameliteral" {
-  description = "vmname without any suffix or Prefix, only to be used for single instances"
+  description = "vmname without any suffix or Prefix, only to be used for single instances."
   default     = ""
 }
 
 variable "vmtemp" {
-  description = "Name of the template available in the vSphere"
+  description = "Name of the template available in the vSphere."
 }
 
 variable "instances" {
-  description = "number of instances you want deploy from the template"
+  description = "number of instances you want deploy from the template."
   default     = 1
 }
 
 variable "cpu_number" {
-  description = "number of CPU (core per CPU) for the VM"
+  description = "number of CPU (core per CPU) for the VM."
   default     = 2
 }
 
@@ -34,7 +34,7 @@ variable "cpu_reservation" {
 
 
 variable "ram_size" {
-  description = "VM RAM size in megabytes"
+  description = "VM RAM size in megabytes."
   default     = 4096
 }
 
@@ -44,22 +44,22 @@ variable "network_cards" {
 }
 
 variable "ipv4" {
-  description = "host(VM) IP address in map format, support more than one IP. Should correspond to number of instances"
+  description = "host(VM) IP address in map format, support more than one IP. Should correspond to number of instances."
   type        = map
 }
 
 variable "ipv4submask" {
-  description = "ipv4 Subnet mask"
+  description = "ipv4 Subnet mask."
   type        = list
   default     = ["24"]
 }
 
 variable "dc" {
-  description = "Name of the datacenter you want to deploy the VM to"
+  description = "Name of the datacenter you want to deploy the VM to."
 }
 
 variable "vmrp" {
-  description = "Cluster resource pool that VM will be deployed to. you use following to choose default pool in the cluster (esxi1) or (Cluster)/Resources"
+  description = "Cluster resource pool that VM will be deployed to. you use following to choose default pool in the cluster (esxi1) or (Cluster)/Resources."
 }
 
 variable "ds_cluster" {
@@ -79,7 +79,7 @@ variable "vmfolder" {
 }
 
 variable "vmgateway" {
-  description = "VM gateway to set during provisioning"
+  description = "VM gateway to set during provisioning."
   default     = null
 }
 
@@ -108,7 +108,7 @@ variable "custom_attributes" {
 }
 
 variable "extra_config" {
-  description = "Extra configuration data for this virtual machine. Can be used to supply advanced parameters not normally in configuration, such as instance metadata.'disk.enableUUID', 'True'"
+  description = "Extra configuration data for this virtual machine. Can be used to supply advanced parameters not normally in configuration, such as instance metadata.'disk.enableUUID', 'True'."
   type        = map
   default     = null
 }
@@ -149,16 +149,19 @@ variable "num_cores_per_socket" {
 
 variable "cpu_hot_add_enabled" {
   description = "Allow CPUs to be added to this virtual machine while it is running."
+  type        = bool
   default     = null
 }
 
 variable "cpu_hot_remove_enabled" {
   description = "Allow CPUs to be removed to this virtual machine while it is running."
+  type        = bool
   default     = null
 }
 
 variable "memory_hot_add_enabled" {
   description = "Allow memory to be added to this virtual machine while it is running."
+  type        = bool
   default     = null
 }
 
@@ -168,33 +171,39 @@ variable "memory_reservation" {
 }
 
 variable "disk_label" {
-  description = "Storage data disk labels"
+  description = "Storage data disk labels."
   type        = list
   default     = []
 }
 
 variable "data_disk_label" {
-  description = "Storage data disk labels"
+  description = "Storage data disk labels."
   type        = list
   default     = []
 }
 
 variable "data_disk_size_gb" {
-  description = "List of Storage data disk size"
+  description = "List of Storage data disk size."
   type        = list
   default     = []
 }
 
+variable "disk_size_gb" {
+  description = "List of disk sizes to override template disk size."
+  type = list
+  default = null
+}
+
 variable "disk_datastore" {
-  description = "Define where the OS disk should be stored"
+  description = "Define where the OS disk should be stored."
   type        = string
-  default     = "samsung"
+  default     = ""
 }
 
 variable "data_disk_datastore" {
-  description = "Define where the data disk should be stored, should be equal to number of defined data disks"
+  description = "Define where the data disk should be stored, should be equal to number of defined data disks."
   type        = list
-  default     = ["wdBlue"]
+  default     = []
   # validation {
   #   condition     = length(var.disk_datastore) == 0 || length(var.disk_datastore) == length(var.data_disk_size_gb)
   #       error_message = "The list of disk datastore must be equal in length to disk_size_gb"
@@ -202,7 +211,7 @@ variable "data_disk_datastore" {
 }
 
 variable "data_disk_scsi_controller" {
-  description = "scsi_controller number for the data disk, should be equal to number of defined data disk"
+  description = "scsi_controller number for the data disk, should be equal to number of defined data disk."
   type        = list
   default     = []
   # validation {
@@ -212,19 +221,19 @@ variable "data_disk_scsi_controller" {
 }
 
 variable "scsi_bus_sharing" {
-  description = "scsi_bus_sharing mode, acceptable values physicalSharing,virtualSharing,noSharing"
+  description = "scsi_bus_sharing mode, acceptable values physicalSharing,virtualSharing,noSharing."
   type        = string
   default     = null
 }
 
 variable "scsi_type" {
-  description = "scsi_controller type, acceptable values lsilogic,pvscsi "
+  description = "scsi_controller type, acceptable values lsilogic,pvscsi."
   type        = string
   default     = ""
 }
 
 variable "scsi_controller" {
-  description = "scsi_controller number for the main OS disk"
+  description = "scsi_controller number for the main OS disk."
   type        = number
   default     = 0
   # validation {
@@ -247,23 +256,25 @@ variable "eagerly_scrub" {
 
 variable "enable_disk_uuid" {
   description = "Expose the UUIDs of attached virtual disks to the virtual machine, allowing access to them in the guest."
+  type        = bool
   default     = null
 }
 
 variable "network_type" {
-  description = "Define network type for each network interface"
+  description = "Define network type for each network interface."
   type        = list
   default     = null
 }
 
 #Linux Customization Variables
 variable "hw_clock_utc" {
-  description = "Tells the operating system that the hardware clock is set to UTC"
+  description = "Tells the operating system that the hardware clock is set to UTC."
+  type        = bool
   default     = true
 }
 
 variable "vmdomain" {
-  description = "default VM domain for linux guest customization"
+  description = "default VM domain for linux guest customization."
   default     = "Development.com"
 }
 
@@ -271,11 +282,12 @@ variable "vmdomain" {
 #Windows Customization Variables
 variable "is_windows_image" {
   description = "Boolean flag to notify when the custom image is windows based."
+  type        = bool
   default     = false
 }
 
 variable "local_adminpass" {
-  description = "The administrator password for this virtual machine.(Required) when using join_windomain option"
+  description = "The administrator password for this virtual machine.(Required) when using join_windomain option."
   default     = null
 }
 
@@ -290,27 +302,28 @@ variable "windomain" {
 }
 
 variable "domain_admin_user" {
-  description = "Domain admin user to join the server to AD.(Required) when using join_windomain option"
+  description = "Domain admin user to join the server to AD.(Required) when using join_windomain option."
   default     = null
 }
 
 variable "domain_admin_password" {
-  description = "Doamin User pssword to join the server to AD.(Required) when using join_windomain option"
+  description = "Doamin User pssword to join the server to AD.(Required) when using join_windomain option."
   default     = null
 }
 
 variable "orgname" {
-  description = "Organization name for when joining windows server to AD"
+  description = "Organization name for when joining windows server to AD."
   default     = null
 }
 
 variable "auto_logon" {
-  description = " Specifies whether or not the VM automatically logs on as Administrator. Default: false"
+  description = " Specifies whether or not the VM automatically logs on as Administrator. Default: false."
+  type = bool
   default     = null
 }
 
 variable "auto_logon_count" {
-  description = "Specifies how many times the VM should auto-logon the Administrator account when auto_logon is true. This should be set accordingly to ensure that all of your commands that run in run_once_command_list can log in to run"
+  description = "Specifies how many times the VM should auto-logon the Administrator account when auto_logon is true. This should be set accordingly to ensure that all of your commands that run in run_once_command_list can log in to run."
   default     = null
 }
 
@@ -320,7 +333,7 @@ variable "time_zone" {
 }
 
 variable "run_once" {
-  description = "List of Comamnd to run during first logon (Automatic login set to 1)"
+  description = "List of Comamnd to run during first logon (Automatic login set to 1)."
   type        = list(string)
   default     = null
 }
@@ -331,46 +344,120 @@ variable "productkey" {
 }
 
 variable "full_name" {
-  description = "The full name of the user of this virtual machine. This populates the user field in the general Windows system information. Default - Administrator"
+  description = "The full name of the user of this virtual machine. This populates the user field in the general Windows system information. Default - Administrator."
   default     = null
 }
 
 variable "wait_for_guest_net_routable" {
   description = "Controls whether or not the guest network waiter waits for a routable address. When false, the waiter does not wait for a default gateway, nor are IP addresses checked against any discovered default gateways as part of its success criteria. This property is ignored if the wait_for_guest_ip_timeout waiter is used."
-  default     = true
   type        = bool
+  default     = true
 }
 
 variable "wait_for_guest_ip_timeout" {
   description = "The amount of time, in minutes, to wait for an available guest IP address on this virtual machine. This should only be used if your version of VMware Tools does not allow the wait_for_guest_net_timeout waiter to be used. A value less than 1 disables the waiter."
-  default     = 0
   type        = number
+  default     = 0
 }
 
 variable "wait_for_guest_net_timeout" {
   description = "The amount of time, in minutes, to wait for an available IP address on this virtual machine's NICs. Older versions of VMware Tools do not populate this property. In those cases, this waiter can be disabled and the wait_for_guest_ip_timeout waiter can be used instead. A value less than 1 disables the waiter."
-  default     = 5
   type        = number
+  default     = 5
+}
+
+variable "ignored_guest_ips" {
+  description = "List of IP addresses and CIDR networks to ignore while waiting for an available IP address using either of the waiters. Any IP addresses in this list will be ignored if they show up so that the waiter will continue to wait for a real IP address."
+  type        = list(string)
+  default     = []
 }
 
 variable "vm_depends_on" {
-  description = "Add any external depend on module here like vm_depends_on = [module.fw_core01.firewall]"
+  description = "Add any external depend on module here like vm_depends_on = [module.fw_core01.firewall]."
   type        = any
   default     = null
-}
-
-variable "dc_abreviation" {
-  description     = "abreviation for datacenter"
-  type            = string
-}
-
-variable "environment" {
-  description = "initial for deploy environment"
-  type        = string
 }
 
 variable "tag_depends_on" {
-  description = "Add any external depend on module here like tag_depends_on = [vsphere_tag.foo.id]"
+  description = "Add any external depend on module here like tag_depends_on = [vsphere_tag.foo.id]."
   type        = any
   default     = null
+}
+
+variable "hv_mode" {
+  description = "The (non-nested) hardware virtualization setting for this virtual machine. Can be one of hvAuto, hvOn, or hvOff."
+  type        = string
+  default     = null
+}
+
+variable "ept_rvi_mode" {
+  description = "The EPT/RVI (hardware memory virtualization) setting for this virtual machine."
+  type        = string
+  default     = null
+}
+
+variable "nested_hv_enabled" {
+  description = "Enable nested hardware virtualization on this virtual machine, facilitating nested virtualization in the guest."
+  type        = bool
+  default     = null
+}
+
+variable "enable_logging" {
+  description = "Enable logging of virtual machine events to a log file stored in the virtual machine directory."
+  type        = bool
+  default     = null
+}
+
+variable "cpu_performance_counters_enabled" {
+  description = "Enable CPU performance counters on this virtual machine."
+  type        = bool
+  default     = null
+}
+
+variable "swap_placement_policy" {
+  description = "The swap file placement policy for this virtual machine. Can be one of inherit, hostLocal, or vmDirectory."
+  type        = string
+  default     = null
+}
+
+variable "latency_sensitivity" {
+  description = "Controls the scheduling delay of the virtual machine. Use a higher sensitivity for applications that require lower latency, such as VOIP, media player applications, or applications that require frequent access to mouse or keyboard devices.Can be one of low, normal, medium, or high."
+  type        = string
+  default     = null
+}
+
+variable "shutdown_wait_timeout" {
+  description = "The amount of time, in minutes, to wait for a graceful guest shutdown when making necessary updates to the virtual machine. If force_power_off is set to true, the VM will be force powered-off after this timeout, otherwise an error is returned."
+  type        = string
+  default     = null
+}
+
+variable "migrate_wait_timeout" {
+  description = "The amount of time, in minutes, to wait for a graceful guest shutdown when making necessary updates to the virtual machine. If force_power_off is set to true, the VM will be force powered-off after this timeout, otherwise an error is returned."
+  type        = string
+  default     = null
+}
+
+variable "force_power_off" {
+  description = "If a guest shutdown failed or timed out while updating or destroying (see shutdown_wait_timeout), force the power-off of the virtual machine."
+  type        = bool
+  default     = null
+}
+
+variable "ssh_user" {
+  description   = "SSH User for provisioner"
+  type          = string
+  default       = "svc-terraform"
+
+}
+
+variable "ssh_key" {
+  description   = "SSH Key for provisioner"
+  type          = string
+}
+
+variable "conn_type" {
+  description   = "Type of connection for provisioner"
+  type          = string
+  default       = "SSH"
 }
